@@ -294,7 +294,8 @@ def countBits(num: int): # 3.3
         # print(res[i >> 1])
         res[i] = res[i >> 1] + (i & 1)
     return res
- ######################################################
+
+###########################################################################################################
 def climbStairs(n: int): # 3.3 动态规划第一题
     # 70. 爬楼梯 easy
     dp = [0] * n
@@ -322,6 +323,31 @@ def uniquePaths(m: int, n: int) -> int: # 3.3 动态规划第二题
     
     return dp[m-1][n-1]
 
+def maxEnvelopes(envelopes): # 3.4
+    # 354. 俄罗斯套娃信封问题 hard
+    '''二维的最长子序列问题 '''
+    if len(envelopes) <= 1:return len(envelopes)
+    # 用[][0]进行排序 如果[][0]相同 就排[][1]倒序
+    envelopes.sort(key=lambda x: (x[0],-x[1])) 
+    # print(envelopes)
+    dp = [1] * len(envelopes) # 动态规划
+    for i in range(len(envelopes)):
+        for j in range(i):
+            if envelopes[i][1] > envelopes[j][1]:
+                dp[i] = max(dp[i],dp[j]+1)
+    return max(dp)
+
+def lengthOfLIS(nums): # 3.4
+    # 300. 最长递增子序列 medium 
+    if not nums:return 0
+    dp = [1]*len(nums)
+    for i in range(len(nums)):
+        for j in range(i):
+            if nums[i] > nums[j]:
+                # 状态转移表达式dp[i] = max(dp[i],dp[j]+1)
+                dp[i] = max(dp[i],dp[j]+1)
+    return max(dp)
+
 
 def ceshi():
     pass
@@ -329,7 +355,7 @@ def ceshi():
 
 if __name__ == "__main__":
     import numpy as np
-    print(np.zeros([3,7],dtype=int))
+    # print(np.zeros([3,7],dtype=int))
     # x = predictPartyVictory('RDRDR')
     # print(x)
     # a()
@@ -358,8 +384,15 @@ if __name__ == "__main__":
     # obj = myPow(2.00000,10)
     # obj = lengthOfLongestSubstring('abcabcbb')
     # obj = countBits(5)
+
+#------------------------------------------------------------
+# 动态规划
     # obj = climbStairs(7)
-    obj = uniquePaths(3,7)
+    # obj = uniquePaths(3,7)
+    obj = maxEnvelopes([[5,4],[6,5],[6,7],[2,3]])
+    # obj = lengthOfLIS([10,9,2,5,3,7,101,18])
+#------------------------------------------------------------
+
     print(obj)
 
 

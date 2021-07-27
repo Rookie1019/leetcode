@@ -27,7 +27,7 @@ class Search_muti():
                 if i == self.a:
                     found = True
                     break
-            print(j)
+            # print(j)
         return found
 
     def Binary_search(self,x:int,y:list):
@@ -85,7 +85,8 @@ class sort_ziji():
         '''
         选择排序
         '''
-        for i in range(len(self.nums)-1,0,-1):
+        n = len(self.nums)
+        for i in range(n-1,0,-1):
             pos = 0
             for j in range(i+1):
                 if self.nums[j] > pos:
@@ -93,7 +94,7 @@ class sort_ziji():
                     z = j
             self.nums[z] = self.nums[i]
             self.nums[i] = pos
-
+    
         return self.nums
 
         # 书上的写法
@@ -148,16 +149,87 @@ class sort_ziji():
                 low += 1
             self.nums[high] = self.nums[low]
             high -= 1
-        
-
         # 循环结束时
         self.nums[low] = mid_value
-
         # 对low左边执行快排
-        self.quick_sort(self.nums,first,low-1)
-
+        self.quick_sort(first,low-1)
         # 对low的右边快排
-        self.quick_sort(self.nums,low+1,last)
+        self.quick_sort(low+1,last)
+
+
+
+
+def quick(nums,left,right):
+    '''快速排序'''
+    def partition(nums,left,right):
+        i,j = left, right
+        pivot = nums[left]
+        while i != j:
+            while i<j and nums[j] > pivot:
+                j -= 1
+            while i<j and nums[i] <= pivot:
+                i += 1
+            if i < j:
+                nums[i],nums[j] = nums[j],nums[i]
+        nums[i],nums[left] = nums[left], nums[i]
+        return i
+
+    if left >= right:return
+    pivot = partition(nums,left,right)
+    quick(nums, left, pivot-1)
+    quick(nums, pivot+1, right)
+
+def quick_sort(li, start, end):
+    # 分治 一分为二
+    # start=end ,证明要处理的数据只有一个
+    # start>end ,证明右边没有数据
+    if start >= end:
+        return
+    # 定义两个游标，分别指向0和末尾位置
+    left = start
+    right = end
+    # 把0位置的数据，认为是中间值
+    mid = li[left]
+    while left < right:
+        # 让右边游标往左移动，目的是找到小于mid的值，放到left游标位置
+        while left < right and li[right] >= mid:
+            right -= 1
+        li[left] = li[right]
+        # 让左边游标往右移动，目的是找到大于mid的值，放到right游标位置
+        while left < right and li[left] < mid:
+            left += 1
+        li[right] = li[left]
+    # while结束后，把mid放到中间位置，left=right
+    li[left] = mid
+    # 递归处理左边的数据
+    quick_sort(li, start, left-1)
+    # 递归处理右边的数据
+    quick_sort(li, left+1, end)
+
+def mergesort(nums):
+    '''归并排序'''
+    def merge(left,right):
+        l, r = 0,0
+        res = []
+        while l < len(left) and r < len(right):
+            if left[l] < right[r]:
+                res.append(left[l])
+                l += 1
+            else:
+                res.append(right[r])
+                r += 1
+        # res = res + left[l:] + right[r:]
+        res.extend(left[l:])
+        res.extend(right[r:])
+        return res
+    
+    
+    if len(nums) <= 1:return nums
+    mid = len(nums) // 2
+    left = mergesort(nums[:mid])
+    right = mergesort(nums[mid:])
+
+    return merge(left,right)
         
 #################################################################
 # 树
@@ -202,7 +274,7 @@ class tree(object):
     def breadth_travel(self):
         '''广度优先遍历'''
         if self.root is None:
-            return
+            return None
         queue = [self.root]
  
         while queue:
@@ -320,7 +392,7 @@ class SingleLink(object):
             return False
         else:
             cur = self._head
-            while cur != None:
+            while cur:
                 if cur.elem == item:
                     return True
                 else:
@@ -329,9 +401,10 @@ class SingleLink(object):
 
 
 if __name__ == '__main__':
-    # x = Search_muti(a=10,L=[1,3,4,45,67,98,109])
-    # v = x.sequential_searnch()
+    # x = Search_muti(a=10,L=[1,3,4,10,45,67,98,109])
+    # # v = x.sequential_searnch()
     # v = x.ordered_search()
+    # v = x.se
     # v = x.Binary_search(10,[1,3,4,45,67,98,109])
     # print(v)
 
@@ -340,9 +413,9 @@ if __name__ == '__main__':
     # c = a.bubbleSort()
     # c = a.select_sort()
     # c = a.insert_sort()
-    a.quick_sort(0,6)
-    print('排好序：',a)
-    # print(c)
+    c = a.quick_sort(0,6)
+    # print('排好序：',a)
+    print(c)
 
 
     # tree = tree()
@@ -364,25 +437,26 @@ if __name__ == '__main__':
     # tree.breadth_travel()
     
     # a = list_Node(3)
+    #
+    # ll = SingleLink()
+    #
+    # a = ll.is_empty()
+    # # print(a)
+    # ll.append(4)
+    # ll.append(5)
+    # ll.add(3)
+    # ll.add(8)
+    # ll.append(9)
+    # ll.append(19)
+    # ll.insert(3,25)
+    # ll.insert(100,24)
+    # ll.insert(-9,100)
+    # print(ll)
 
-    ll = SingleLink()
-    
-    a = ll.is_empty()
-    print(a)
-    ll.append(4)
-    ll.append(5)
-    ll.add(3)
-    ll.add(8)
-    ll.append(9)
-    ll.append(19)
-    ll.insert(3,25)
-    ll.insert(100,24)
-    ll.insert(-9,100)
+    # a = ll.search(100)
+    # print(a)
 
-    a = ll.search(100)
-    print(a)
-
-    ll.travel()
+    # ll.travel()
 
     
     
