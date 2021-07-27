@@ -1252,7 +1252,7 @@ if __name__ == '__main__':
     # obj = maximumTime("0?:3?")
     obj = restoreArray([[-3,-9],[-5,3],[2,-9],[6,-3],[6,1],[5,3],[8,5],[-5,1],[7,2]])
     print(obj)
-
+    print('123')
 
 
 
