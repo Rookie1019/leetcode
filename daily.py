@@ -4,8 +4,9 @@ import math
 import re
 import numpy as np
 import collections
-from collections import Counter
+from collections import Counter, defaultdict
 from functools import cmp_to_key
+
 
 
 
@@ -1173,9 +1174,174 @@ def restoreArray(adjacentPairs): # 727
 
     return res
 
+def findUnsortedSubarray(nums) -> int: # 8.3
+    # 581. 最短无序连续子数组 medium
+    if len(nums) <= 1:return 0
+    left, right = 0, len(nums)-1
+    while left <= right:
+        if nums[left] > nums[right]:
+            return len(nums[left:right])
+        else:
+            left += 1
+            right -= 1
+    return 0
+
+def triangleNumber(nums) -> int: # 8.4
+    # 611. 有效三角形的个数 medium
+    def istriangle(a,b,c):
+        if a+b<c or a+c<b or b+c<a:
+            return False
+        else:
+            if abs(a-b)>c or abs(a-c)>b or abs(b-c)>a:
+                return False
+        return True
+    for i in range(len(nums)):
+        pass
+    return 
+
+def nthUglyNumber(n: int) -> int:
+    num = [2,3,5]
+    i = 0
+    j = 0
+    res = [1]
+    while j<=n:
+        pass
+        
+
+    return 1
+
+def numberOfArithmeticSlices(nums) -> int: # 8.10
+    # 413. 等差数列划分 medium    # 注意是连续的 前面理解错了
+    # n = len(nums)
+    # if n == 1:return 0
+    # dp = [0] * n
+    # for i in range(2,n):
+    #     if nums[i-2]-nums[i-1] == nums[i-1]-nums[i]:
+    #         dp[i] = dp[i-1]+1
+    #     else:
+    #         pass
+    # return sum(dp)
+    n = len(nums)
+    if n == 1:return 0
+    ans = 0
+    a = 0
+    for i in range(2,n):
+        if nums[i-2]-nums[i-1] == nums[i-1]-nums[i]:
+            a += 1
+        else:
+            a = 0
+        ans += a 
+    return ans
+
+def numberOfArithmeticSlices2(nums) -> int: # 8.11
+    # 413. 等差数列划分er hard
+    ans = 0
+    f = [defaultdict(int) for _ in nums]
+    for i, x in enumerate(nums):
+        for j in range(i):
+            d = x - nums[j]
+            cnt = f[j][d]
+            ans += cnt
+            f[i][d] += cnt + 1
+    return ans
+
+def longestPalindromeSubseq(s: str): # 8.12
+    # 516. 最长回文子序列 medium 经典dp
+    n = len(s)
+    if n==1:return 1
+    dp = [[0]*n for _ in range(n)]
+    for i in range(n-1,-1,-1):
+        dp[i][i] = 1
+        for j in range(i+1,n):
+            if s[i] == s[j]:
+                dp[i][j] = dp[i+1][j-1] + 2
+            else:
+                dp[i][j] = max(dp[i+1][j],dp[i][j-1])
+    return dp[0][n-1]
+
+# def rob(nums) -> int: # 8.16
+#     # 198. 打家劫舍 medium
+    
+
+def checkRecord(s: str) -> bool: 
+    if s.count('A') >= 2:return False
+    if len(s)<=2:return True
+    else:
+        for i in range(len(s)-2):
+            if s[i] == 'L' and s[i+1] == 'L' and s[i+2] == 'L':
+                return False
+    return True
+
+def reverseVowels(s: str) -> str: # 819
+    # 345. 反转字符串中的元音字母 easy
+    # s = list(s)
+    # res = ['a','e','i','o','u','A','E','U','I','O']
+    # c = []
+    # for i in s:
+    #     if i in res:
+    #         c.append(i)
+    # c = c[::-1]
+    # z = ''
+    # for i in range(len(s)):
+    #     if s[i] in res:
+    #         z += c[0]
+    #         c.remove(c[0])
+    #     else:
+    #         z += s[i]
+    # return z
+    def ziji(ch):
+        return ch in ['a','e','i','o','u','A','E','U','I','O']
+    
+    n = len(s)
+    left, right =  0, n-1
+    s = list(s)
+    while left < right:
+        while left<n and not ziji(s[left]):
+            left += 1
+        while right>0 and not ziji(s[right]):
+            right -= 1
+        if left < right:
+            s[left], s[right] = s[right], s[left]
+        left += 1
+        right -= 1
+    return ''.join(s)
+    
+def reverseStr(s: str, k: int) -> str:
+    # def rever(nums,k):
+    #     nums_k = nums[:k]
+    #     nums_k = nums_k[::-1]
+    #     nums[:k] = nums_k
+    #     return nums
+    # s = list(s)
+    # n = len(s)
+    # res = []
+    # result = []
+    # for i in range(n):
+    #     if i%(2*k) == 0:
+    #         res = rever(res,k)
+    #         result.extend(res)
+    #         res = []
+    #     else:
+    #         res.append(s[i])
+    # def rever(nums,k):
+    #     nums_k = nums[:k]
+    #     nums_k = nums_k[::-1]
+    #     nums[:k] = nums_k
+    #     return nums
+
+    # return result
+    s = list(s)
+    for i in range(0,len(s),2*k):
+        s[i:i+k] = reversed(s[i:i+k])
+    return ''.join(s)
+
+
 def ceshi():
-    for i,j in [[25,42],[7,14],[2,32],[25,28],[39,49],[1,50],[29,45],[18,47]]:
-        print(i)    
+    # min_depth = 10**9
+    # print('min_depth',min_depth) 
+    # que = collections.deque([(2, 1)])
+    # print(que)
+    pass
 
 
 
@@ -1250,10 +1416,21 @@ if __name__ == '__main__':
     # obj = minPairSum([3,5,2,3])
     # obj = isCovered([[25,42],[7,14],[2,32],[25,28],[39,49],[1,50],[29,45],[18,47]], left = 15, right = 38)
     # obj = maximumTime("0?:3?")
-    obj = restoreArray([[-3,-9],[-5,3],[2,-9],[6,-3],[6,1],[5,3],[8,5],[-5,1],[7,2]])
+    # obj = restoreArray([[-3,-9],[-5,3],[2,-9],[6,-3],[6,1],[5,3],[8,5],[-5,1],[7,2]])
+    # obj = findUnsortedSubarray([2,6,4,8,10,9,15])
+    # obj = numberOfArithmeticSlices([1,2,3,5,7,8,9])
+    # obj = numberOfArithmeticSlices2([1,2,3,5,7,8,9])
+    # obj  = longestPalindromeSubseq('abbbb')
+    # obj = rob([1,2,3,1,5,8,9])
+    # obj = checkRecord("AALL")
+    # obj = reverseVowels('hello')
+    obj = reverseStr('abcdefg',2)
+
+
     print(obj)
-    print('123')
+
+    # print(max(3,3))
 
 
 
-    # ceshi()
+    ceshi()

@@ -6,14 +6,14 @@ df = pd.DataFrame([
 
 df.columns = ['color',  'class'] 
 pd.get_dummies(df) 
-————————————————
-版权声明：本文为CSDN博主「魔术师_」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/maymay_/article/details/80198468def merge_sort(array):
-    if len(array) == 1:
-        return array
-    left_array = merge_sort(array[:len(array)//2])
-    right_array = merge_sort(array[len(array)//2:])
-    return merge(left_array, right_array)
+# ————————————————
+# 版权声明：本文为CSDN博主「魔术师_」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+# 原文链接：https://blog.csdn.net/maymay_/article/details/80198468def merge_sort(array):
+#     if len(array) == 1:
+#         return array
+#     left_array = merge_sort(array[:len(array)//2])
+#     right_array = merge_sort(array[len(array)//2:])
+#     return merge(left_array, right_array)
  
  
 def merge(left_array, right_array):
@@ -31,4 +31,6 @@ def merge(left_array, right_array):
  
 if __name__ == '__main__':
     array = [10, 17, 50, 7, 30, 24, 27, 45, 15, 5, 36, 21]
-    print(merge_sort(array))
+    # print(merge_sort(array))
+    a=eval(input()) 
+    print(a)
