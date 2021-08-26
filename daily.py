@@ -1336,6 +1336,23 @@ def reverseStr(s: str, k: int) -> str:
     return ''.join(s)
 
 
+def numRescueBoats(people, limit: int) -> int:
+    people.sort()
+    n = len(people)
+    res = 0
+    left, right = 0, n-1
+    while left < right:
+        if people[left] + people[right] > limit:
+            right -= 1
+        else:
+            right -= 1
+            left += 1
+        res += 1
+
+    return res
+
+
+
 def ceshi():
     # min_depth = 10**9
     # print('min_depth',min_depth) 
@@ -1424,7 +1441,8 @@ if __name__ == '__main__':
     # obj = rob([1,2,3,1,5,8,9])
     # obj = checkRecord("AALL")
     # obj = reverseVowels('hello')
-    obj = reverseStr('abcdefg',2)
+    # obj = reverseStr('abcdefg',2)
+    obj = numRescueBoats(people=[3,5,3,4], limit=5)
 
 
     print(obj)

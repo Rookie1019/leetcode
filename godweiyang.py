@@ -134,7 +134,25 @@ def maxProfit2(prices) -> int: # 8.6
     for i in range(1,n):
         res += max(prices[i]-prices[i-1],0) # a b c (c-b)+(b-a)=c-a
     return res
-            
+
+
+def trap(height) -> int:  # 接雨水
+    # hard
+    # res = 0
+    # for i in range(1,len(height)-1):
+    #     res += max(0,min(height[i-1],height[i+1])-height[i])
+    # return res
+    n = len(height)
+    dp = [0] * (n + 1)
+    for i in range(n):
+        dp[i + 1] = max(height[i], dp[i])
+
+    rmax, res = 0, 0
+    for i in range(n - 1, -1, -1):
+        rmax = max(rmax, height[i])
+        res += min(dp[i + 1], rmax) - height[i]
+    return res
+
 
 
 
@@ -165,7 +183,8 @@ if __name__ == '__main__':
     # 贪心算法
     # obj = canJump([3,2,1,0,4])
     # obj = maxProfit([7,6,4,3,1])
-    obj = maxProfit2([5,4,3,2,1])
+    # obj = maxProfit2([5,4,3,2,1])
+    obj = trap([0,1,0,2,1,0,1,3,2,1,2,1])
 
 ################################################################
     # 数学技巧
@@ -216,4 +235,4 @@ if __name__ == '__main__':
 
     print(obj)
 
-    print(100//2)
+    # print(100//2)
