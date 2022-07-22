@@ -32,7 +32,7 @@ def fo():
 
 if __name__ == '__main__':
     a = erfen([1,2,3,6,7],6)
-    print(a)
+    print(a) # pull的test
     fo()
 
 
