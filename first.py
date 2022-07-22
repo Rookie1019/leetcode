@@ -13,3 +13,4 @@ class A(nn.Module):
 # print('b',b)
 a = torch.nn.CTCLoss()
 print(a)
+print(torch.nn.Linear(200,1))
